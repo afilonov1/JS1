@@ -1,98 +1,102 @@
 "use strict";
+// 3 урок
 
 // 1 задание
-
-//пример 1
-let a = 1, b = 1, c, d;
-c = ++a;
-console.log(c); // ответ: 2, потому что a сначала увеличивается на 1, потом приравнивается к c
-//пример 2
-d = b++;
-console.log(d); //ответ: 1, потому что b сначала приравнивается к d, потом увеличивается на 1
-//пример 3
-c = 2 + ++a;
-console.log(c); //ответ: 5. a был равен 2.он увеличивается на 1 = 3, потом присоединяется к 2 => c = 5
-//пример 4
-d = 2 + b++; //ответ 4, тк 2 + 2(b) = 4 и потом b увеличивается на 1
-console.log(d); //4
-console.log(a); //3
-console.log(b); //3
+function createArr() {
+	let arr = [];
+	for (let i = 0; i <= 10; i++) {
+		if (i === 0) {
+			arr[i] = `${i} - это ноль`;
+		} else if (i % 2 !== 0) {
+			arr[i] = `${i} - это нечетное число`;
+		} else {
+			arr[i] = `${i} - это четное число`;
+		}
+	}
+	return arr;
+}
+createArr().forEach((elem) => console.log(elem));
 
 // 2 задание
-a = 2;
-let x = 1 + (a *= 2);
-// a сначала умножается на 2 и записывается в a => a = 4
-// x = 1 + 4 = 5
+const post = {
+	author: "John", //вывести этот текст
+	postId: 23,
+	comments: [{
+			userId: 10,
+			userName: "Alex",
+			text: "lorem ipsum",
+			rating: {
+				likes: 10,
+				dislikes: 2 //вывести это число
+			}
+		},
+		{
+			userId: 5, //вывести это число
+			userName: "Jane",
+			text: "lorem ipsum 2", //вывести этот текст
+			rating: {
+				likes: 3,
+				dislikes: 1
+			}
+		},
+	]
+};
+
+const newPost = [post.author, post.comments[0].rating.dislikes, post.comments[1].userId, post.comments[1].text];
+console.log(newPost.join('||'));
 
 // 3 задание
-a = 5;
-b = -33;
-if (a >= 0 && b >= 0) {
-	console.log(Math.abs(b-a));
-} else if (a < 0 && b < 0) {
-	console.log(a * b);
-} else {
-	console.log(a + b);
-}
+const products = [{
+		id: 3,
+		price: 200,
+	},
+	{
+		id: 4,
+		price: 900,
+	},
+	{
+		id: 1,
+		price: 1000,
+	},
+];
+products.forEach((product) => product.price *= 0.85)
+console.log(products);
 
 // 4 задание
-a = 1;
-b = 5;
-function sum(a, b) {
-	return a + b;
-}
-let difference = (a, b) => Math.abs(a - b);
-let division = function() {
-	return a / b;
-}
-
-const multiplication = (a, b) => a * b;
-
-console.log(sum(a, b), difference(a, b), division(a, b), multiplication(a, b));
+const productsNextTask = [{
+		id: 3,
+		price: 127,
+		photos: [
+			"1.jpg",
+			"2.jpg",
+		]
+	},
+	{
+		id: 5,
+		price: 499,
+		photos: []
+	},
+	{
+		id: 10,
+		price: 26,
+		photos: [
+			"3.jpg"
+		]
+	},
+	{
+		id: 8,
+		price: 78,
+	}
+];
+const productsWithPhoto = productsNextTask.filter(product => (product.photos !== undefined) ? 1 : 0);
+console.log(productsWithPhoto);
+productsNextTask.sort((a, b) => a.price - b.price);
+console.log(productsNextTask);
 
 // 5 задание
-function mathOperation(arg1, arg2, operation) {
-	let oper = null;
-	switch (operation) {
-		case 'sum':
-			oper = arg1 + arg2;
-			break;
-		case 'diff':
-			oper = Math.abs(arg1 - arg2);
-			break;
-		case 'divide':
-			oper = arg1 / arg2;
-			break;
-		case 'multiply':
-			oper = arg1 * arg2;
-			break;
-	}
-	if (oper === null) 
-		console.log('Операция введена неверно');
-	else
-		return oper;
-}
-console.log(mathOperation(1, 2, 'multiply'))
+for (let i = 0; i <= 9; console.log(i), i++) {}
 
 // 6 задание
-
-function ending(number) {
-	let word;
-	if (number === 1 ) {
-		word = 'рубль';
-	} else if (number === 2 || number === 3 || number === 4) {
-		word = 'рубля';
-	} else {
-		word = 'рублей';
-	}
-	return word;
+for (let i = 0; i < 20; i++) {
+	console.log('x'.repeat(i + 1));
 }
-function lastNumeral(number) {
-	if (number > 10) {
-		number %= 10;
-	}
-	return parseInt(number);
-}
-let constructor = (value, word) => alert(`"Ваша сумма в ${value} ${word} успешно зачислена`);
-const value = +prompt('Какое число хотите положить на счет?');
-constructor(value, ending(lastNumeral(value)));
