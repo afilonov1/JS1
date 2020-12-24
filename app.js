@@ -1,102 +1,104 @@
 "use strict";
-// 3 урок
+// 4 урок
 
 // 1 задание
-function createArr() {
-	let arr = [];
-	for (let i = 0; i <= 10; i++) {
-		if (i === 0) {
-			arr[i] = `${i} - это ноль`;
-		} else if (i % 2 !== 0) {
-			arr[i] = `${i} - это нечетное число`;
-		} else {
-			arr[i] = `${i} - это четное число`;
-		}
+
+function IntToObj (num) {
+	if (Number.isInteger(num) && num <= 999 & num >= 0) {
+		this.units = Math.floor(num % 10);
+		this.tens = Math.floor(num / 10 % 10);
+		this.hundreds = Math.floor(num / 100);
+	} else {
+		console.log('Введены неверные данные');
 	}
-	return arr;
 }
-createArr().forEach((elem) => console.log(elem));
 
-// 2 задание
-const post = {
-	author: "John", //вывести этот текст
-	postId: 23,
-	comments: [{
-			userId: 10,
-			userName: "Alex",
-			text: "lorem ipsum",
-			rating: {
-				likes: 10,
-				dislikes: 2 //вывести это число
-			}
-		},
-		{
-			userId: 5, //вывести это число
-			userName: "Jane",
-			text: "lorem ipsum 2", //вывести этот текст
-			rating: {
-				likes: 3,
-				dislikes: 1
-			}
-		},
-	]
-};
+const number = Number(prompt('Введите число'));
 
-const newPost = [post.author, post.comments[0].rating.dislikes, post.comments[1].userId, post.comments[1].text];
-console.log(newPost.join('||'));
+const numberObj = new IntToObj(number);
 
-// 3 задание
-const products = [{
-		id: 3,
-		price: 200,
-	},
-	{
-		id: 4,
-		price: 900,
-	},
-	{
-		id: 1,
-		price: 1000,
-	},
-];
-products.forEach((product) => product.price *= 0.85)
-console.log(products);
+console.log(numberObj);
 
-// 4 задание
-const productsNextTask = [{
-		id: 3,
-		price: 127,
-		photos: [
-			"1.jpg",
-			"2.jpg",
-		]
-	},
-	{
-		id: 5,
-		price: 499,
-		photos: []
-	},
-	{
-		id: 10,
-		price: 26,
-		photos: [
-			"3.jpg"
-		]
-	},
-	{
-		id: 8,
-		price: 78,
-	}
-];
-const productsWithPhoto = productsNextTask.filter(product => (product.photos !== undefined) ? 1 : 0);
-console.log(productsWithPhoto);
-productsNextTask.sort((a, b) => a.price - b.price);
-console.log(productsNextTask);
+// 1.1 задание ES5
 
-// 5 задание
-for (let i = 0; i <= 9; console.log(i), i++) {}
+// function Product(name, price) {
+// 	this.name = name;
+// 	this.price = price;
+// }
 
-// 6 задание
-for (let i = 0; i < 20; i++) {
-	console.log('x'.repeat(i + 1));
-}
+// Product.prototype.make25PercentDiscount = function() {
+// 	this.price *= 0.75;
+// }
+
+// let product = new Product('car', 2000);
+// console.log(product);
+// product.make25PercentDiscount();
+// console.log(product);
+
+// 1.1 задание ES6
+
+// class Product {
+// 	constructor(name, price) {
+// 		this.name = name;
+// 		this.price = price;
+// 	}
+// 	make25PercentDiscount() {
+// 		this.price *= 0.75;
+// 	} 
+// }
+// let product1 = new Product('fridge', 400);
+// product1.make25PercentDiscount();
+
+// 1.2 задание ES5
+
+// function Post(author, text, date) {
+// 	this.author = author;
+// 	this.text = text;
+// 	this.date = date;
+// }
+
+// Post.prototype.edit = function(textSecond) {
+// 	this.text = textSecond;
+// };
+// let post1 = new Post('Ivan', 'Hello world', 29); 
+// post1.edit('No hello');
+
+// function AttachedPost(author, text, date) {
+// 	Post.call(this, author, text, date);
+// 	this.highlighted = false;
+// }
+
+// AttachedPost.prototype = Object.create(Post.prototype);
+// AttachedPost.prototype.makeTextHighlighted = function() {
+// 	this.highlighted = true;
+// };
+// let post2 = new AttachedPost('Petr', 'Privet', 31);
+// post2.edit('Some text');
+// post2.makeTextHighlighted();
+
+// 1.2 задание ES6
+
+// class Post {
+// 	constructor(author, text, date) {
+// 		this.author = author;
+// 		this.text = text;
+// 		this.date = date;
+// 	}
+// 	edit(textSecond) {
+// 		this.text = textSecond;
+// 	}
+// }
+// let post01 = new Post('Evgeny', 'Frontend', 9);
+// post01.edit('Front-end'); 
+// class AttachedPost extends Post {
+// 	constructor(author, text, date) {
+// 		super(author, text, date);
+// 		this.highlighted = false;
+// 	}
+// 	makeTextHighlighted() {
+// 		this.highlighted = true;
+// 	}
+// }
+// let post02 = new AttachedPost('Semeon', 'Backend', 22);
+// post02.edit('back-end');
+// post02.makeTextHighlighted();
