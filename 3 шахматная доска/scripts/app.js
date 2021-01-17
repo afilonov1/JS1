@@ -24,33 +24,26 @@ let app = {
      */
     insertPawns() {
         // 6. получаем все теги td из 7 линии игрового поля, туда мы будем вставлять белые пешки
-        let whitePawnsRow = document.querySelectorAll();
+        let whitePawnsRow = document.querySelectorAll('tr:nth-child(7) td');
         for (let i = 0; i < whitePawnsRow.length; i++) {
             // 6.1 вставляем в текущий тег td белую пешку
-            whitePawnsRow[i].innerHTML = this.getFigure(pawn, white);
+            whitePawnsRow[i].innerHTML = this.getFigure('pawn', 'whiteFigure');
         }
 
         // 6.2 получаем все теги td из 2 линии игрового поля, туда мы будем вставлять черные пешки
-        let blackPawnsRow = document.querySelectorAll();
+        let blackPawnsRow = document.querySelectorAll('tr:nth-child(2) td');
         for (let i = 0; i < blackPawnsRow.length; i++) {
             // 6.3 вставляем в текущий тег td черную пешку
-            blackPawnsRow[i].innerHTML = this.getFigure(pawn, black);
+            blackPawnsRow[i].innerHTML = this.getFigure('pawn', 'blackFigure');
         }
     },
 
-    /**
-     * Метод вставляет на доску все фигуры, кроме пешек.
-     */
+
     insertFiguresOnDesk() {
-        // 5. в цикле перебираем массив positions
         for (let i = 0; i < positions.length; i++) {
-            // 5.1 получаем ссылку на тег td с атрибутами data-rownum и data-colchar, которым будут соответствовать свойства
-            // coordRow и coordCol из массива positions
             let cell = document.querySelector(`[data-rownum="${positions[i].coordRow}"][data-colchar="${positions[i].coordCol}"]`);
-            // 5.2 из массива positions, для текущего объекта по индексу i, передаем название фигуры, затем цвет+"Figure"
             let figure = this.getFigure(positions[i].figure, positions[i].color+"Figure");
-            // 5.3 в innerHTML текущей ячейки ставим figure
-            cell.innerHTML = figure;
+            cell.innerHTML = figure;   
         }
     },
 
@@ -123,12 +116,12 @@ let app = {
             if (currentColorClass === 'white') {
                 // 2.5 в переменную field пишем результат вызова функции this.generateField, которой передаем цвет ячейки игрового
                 // поля в виде строки, затем номер строки игровой доски в виде числа, последним аргументом передаем this.config.cols[i]
-                field = this.generateField(currentColorClass, i, this.config.cols[i]);
+                field = this.generateField('white', rowNum, this.config.cols[i]);
                 // 2.6 присваиваем в currentColorClass строку "black"
                 currentColorClass = 'black';
             } else {
                 // 2.7 делаем то же что и в п. 2.5, только первым параметром передаем "black"
-                field = this.generateField('black', i, this.config.cols[i]);
+                field = this.generateField('black', rowNum, this.config.cols[i]);
                 // 2.8 переменной currentColorClass присваиваем строку "white"
                 currentColorClass = 'white';
             }
@@ -161,7 +154,7 @@ let app = {
         // 7.1 перебираем эти теги в цикле
         for (let i = 0; i < trs.length; i++) {
             // 7.2 создаем тег td
-            let td = document.createElement();
+            let td = document.createElement('td');
             // 7.3 в текущий тег td в innerText вставляем номер строки из this.config.rows
             td.innerText = this.config.rows[i];
             // 7.4 получившийся тег td вставляем в текущую строку (тег tr)
@@ -176,9 +169,9 @@ let app = {
      */
     insertColsChars() {
         // 8. создаем тег tr
-        let tr = document.createElement();
+        let tr = document.createElement('tr');
         // 8.1 затем в innerHTML тега tr дописываем пустой тег td
-        tr.innerHTML += '';
+        tr.innerHTML += '<td></td>';
         // 8.2 в цикле перебираем колонки из this.config.cols
         for (let i = 0; i < this.config.cols.length; i++) {
             // 8.3 в innerHTML с помощью += дописываем тег td c буквой текущей колонки из this.config.cols
@@ -187,7 +180,7 @@ let app = {
         // 8.4 получаем тег tbody
         let tbody = document.querySelector('tbody');
         // 8.5 и в него перед </tbody> вставляем значение из переменной tr
-        tbody.insertAdjacentElement('beforebegin', tr);
+        tbody.insertAdjacentElement('beforeend', tr);
     },
 }
 
